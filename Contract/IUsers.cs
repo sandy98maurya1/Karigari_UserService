@@ -8,7 +8,7 @@ namespace Contract
     public interface IUsers
     {
         bool AddUser(Users user);
-        bool UpdateUser(Users user);
+        bool UpdateUser(Users user, int id);
         bool DeleteUser(int userId);
         IList<Users> GetAllUser();
         Users GetUserById(int userId);

@@ -8,7 +8,7 @@ namespace Contract.DataContracts
     public interface IUsersData
     {
         bool AddUser(Users user);
-        bool UpdateUser(Users user);
+        bool UpdateUser(Users user, int id);
         bool DisableUser(int userId);
         IList<Users> GetAllUser();
         Users GetUserById(int userId);

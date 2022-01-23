@@ -45,9 +45,9 @@ namespace Repository
             return user;
         }
 
-        public bool UpdateUser(Users user)
+        public bool UpdateUser(Users user, int id)
         {
-            _Users.UpdateUser(user);
+            _Users.UpdateUser(user,id);
             return true;
         }
     }

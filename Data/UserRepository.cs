@@ -134,7 +134,7 @@ namespace Data
                 return count == 1 ? true : false;
             }
         }
-        public bool UpdateUser(Users user)
+        public bool UpdateUser(Users user , int id )
         {
             int count = 0;
             using (var dbConnection = new SqlConnection(connection))

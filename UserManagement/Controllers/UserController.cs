@@ -34,7 +34,9 @@ namespace UserManagement.Controllers
             catch (Exception ex)
             {
                 responce = ex.CacheListExceptionResponse();
+                _logger.LogInfo(ex.Message); 
             }
+            _logger.LogInfo(responce.Message);
             return Ok(responce);
 
         }
@@ -50,8 +52,10 @@ namespace UserManagement.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogInfo(ex.Message); 
                 responce = ex.CacheExceptionResponse();
             }
+            _logger.LogInfo(responce.Message);
             return Ok(responce);
         }
 
@@ -66,8 +70,10 @@ namespace UserManagement.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogInfo(ex.Message);
                 responce = ex.CacheExceptionResponse();
             }
+            _logger.LogInfo(responce.Message);
             return Ok(responce);
         }
 
@@ -82,24 +88,28 @@ namespace UserManagement.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogInfo(ex.Message);
                 responce = ex.CacheExceptionResponse();
             }
+            _logger.LogInfo(responce.Message);
             return Ok(responce);
         }
 
         [HttpPost, Route("/UpdateUser")]
-        public ActionResult UpdateUser(Users users)
+        public ActionResult UpdateUser(Users users, int id)
         {
             ApiResponse<Users> responce = new ApiResponse<Users>();
             try
             {
                 ApiExposeResponse<Dictionary<string, string>> modelErrors = GetModelErrors();
-                responce = _userDomain.AddUser(users).CreateProfileResponse(users);
+                responce = _userDomain.UpdateUser(users,id).CreateProfileResponse(users);
             }
             catch (Exception ex)
             {
+                _logger.LogInfo(ex.Message);
                 responce = ex.CacheExceptionResponse();
             }
+            _logger.LogInfo(responce.Message);
             return Ok(responce);
         }
 
@@ -114,8 +124,10 @@ namespace UserManagement.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogInfo(ex.Message);
                 responce = ex.CacheExceptionResponse();
             }
+            _logger.LogInfo(responce.Message);
             return Ok(responce);
         }
         private ApiExposeResponse<Dictionary<string, string>> GetModelErrors()
