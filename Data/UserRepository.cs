@@ -146,13 +146,12 @@ namespace Data
                     using (var transaction = dbConnection.BeginTransaction())
                     {
 
-                        var userId = dbConnection.Query<int>(@"INSERT INTO Users(FirstName,LastName,Contact,AlternetContact,MaritalStatus,Gender,Address,Role,WorkerType,IsActive,RefreshToken,Password,IsMobileVerified,DeviceID,Enabled) VALUES (@FirstName,@LastName,@Contact,@AlternetContact,@MaritalStatus,@Gender,@Address,@Role,@WorkerType,@IsActive,@RefreshToken,@Password,@IsMobileVerified,@DeviceID,@Enabled); SELECT CAST(SCOPE_IDENTITY() as INT);",
-                        new { @FirstName = user.FirstName, @LastName = user.LastName, @Contact = user.Contact, @AlternetContact = user.AlternetContact, @MaritalStatus = user.MaritalStatus, @Gender = user.Gender, @Address = user.Address, @Role = user.Role, @WorkerType = user.WorkerType, @IsActive = user.IsActive, @RefreshToken = user.RefreshToken, @Password = user.Password, @IsMobileVerified = user.IsMobileVerified, @DeviceID = user.DeviceID, @Enabled = user.Enabled }, transaction: transaction).FirstOrDefault();
+                        var userId = dbConnection.Query<int> (@"UPDATE Users Set FirstName=@FirstName,LastName=@LastName,Contact=@Contact,AlternetContact=@AlternetContact,MaritalStatus=@MaritalStatus,Gender=@Gender,Address=@Address,Role=@Role,WorkerType=@WorkerType,IsActive=@IsActive,RefreshToken=@RefreshToken,Password=@Password,IsMobileVerified=@IsMobileVerified,DeviceID=@DeviceID,Enabled=@Enabled where Id=@userId",
+                        new { @FirstName = user.FirstName, @LastName = user.LastName, @Contact = user.Contact, @AlternetContact = user.AlternetContact, @MaritalStatus = user.MaritalStatus, @Gender = user.Gender, @Address = user.Address, @Role = user.Role, @WorkerType = user.WorkerType, @IsActive = user.IsActive, @RefreshToken = user.RefreshToken, @Password = user.Password, @IsMobileVerified = user.IsMobileVerified, @DeviceID = user.DeviceID, @Enabled = user.Enabled, @userId=id }, transaction: transaction).FirstOrDefault();
                         if (user.Address != null && userId != 0)
                         {
-                            count = dbConnection.Execute(@"INSERT INTO Address(UserId,Village, Taluka, City, State, Country, Zip) 
-                            VALUES(@UserId,@Village, @Taluka, @City, @State, @Country, @Zip);",
-                            new { @UserId = userId, @Village = user.Address.Village, @Taluka = user.Address.Taluka, @City = user.Address.City, @State = user.Address.State, @Country = user.Address.Country, @Zip = user.Address.Zip }, transaction: transaction);
+                            count = dbConnection.Execute(@"Update Address set Village=@Village, Taluka=@Taluka, City=@City, State=@State, Country=@Country, Zip=@Zip where UserId=@UserId",
+                            new { @UserId = id, @Village = user.Address.Village, @Taluka = user.Address.Taluka, @City = user.Address.City, @State = user.Address.State, @Country = user.Address.Country, @Zip = user.Address.Zip }, transaction: transaction);
                         }
                         transaction.Commit();
                     }
