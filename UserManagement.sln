@@ -15,11 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Repository\Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility", "Utility\Utility.csproj", "{D52E4BFB-96EC-486D-9FC0-72E3D57475F5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBScripts", "DBScripts", "{58A20F58-6603-4502-8672-DCCB24A49546}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\KarigariDataBase_25012022.sql = ..\..\..\KarigariDataBase_25012022.sql
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
