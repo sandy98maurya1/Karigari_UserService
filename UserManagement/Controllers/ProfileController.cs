@@ -42,7 +42,7 @@ namespace UserManagement.Controllers
         }
 
 
-        [HttpGet, Route("/CreateUserJobProfile")]
+        [HttpPost, Route("/CreateUserJobProfile")]
         public IActionResult CreateUserJobProfile(JobProfile profile)
         {
             ApiResponse<JobProfile> responce = new ApiResponse<JobProfile>();
@@ -61,14 +61,14 @@ namespace UserManagement.Controllers
 
         }
 
-        [HttpGet, Route("/UpdateUserJobProfile")]
-        public IActionResult UpdateUserJobProfile(JobProfile profile, int userID)
+        [HttpPost, Route("/UpdateUserJobProfile")]
+        public IActionResult UpdateUserJobProfile(JobProfile profile, int profilrId)
         {
             ApiResponse<JobProfile> responce = new ApiResponse<JobProfile>();
             try
             {
                 ApiExposeResponse<Dictionary<string, string>> modelErrors = GetModelErrors();
-                responce = _profileDomain.UpdateUserJobProfile(profile, userID).GetProfileResponce();
+                responce = _profileDomain.UpdateUserJobProfile(profile, profilrId).GetProfileResponce();
             }
             catch (Exception ex)
             {

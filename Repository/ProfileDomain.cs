@@ -16,6 +16,7 @@ namespace Domain
         }
         public JobProfile CreateUserJobProfile(JobProfile profile)
         {
+            profile.AvailableDate = DateTime.Now;
            return _Profile.CreateUserJobProfile(profile);
         }
 
@@ -25,9 +26,9 @@ namespace Domain
 
         }
 
-        public JobProfile UpdateUserJobProfile(JobProfile profile, int userId)
+        public JobProfile UpdateUserJobProfile(JobProfile profile, int profilrId)
         {
-            return _Profile.UpdateUserJobProfile(profile,userId);
+            return _Profile.UpdateUserJobProfile(profile, profilrId);
 
         }
     }

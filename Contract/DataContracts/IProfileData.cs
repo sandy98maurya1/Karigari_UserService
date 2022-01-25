@@ -9,6 +9,6 @@ namespace Contract.DataContracts
     {
         JobProfile GetProfileByUserId(int userId);
         JobProfile CreateUserJobProfile(JobProfile profile);
-        JobProfile UpdateUserJobProfile(JobProfile profile, int userId);
+        JobProfile UpdateUserJobProfile(JobProfile profile, int profilrId);
     }
 }
