@@ -41,6 +41,7 @@ namespace UserManagement
             services.AddTransient<IUsersData, UserRepository>();
             services.AddScoped<IUsers, UsersDomain>();
             services.AddScoped<IProfile, ProfileDomain>();
+            services.AddTransient<IProfileData, ProfileRepository>();
 
             services.AddScoped<ILoggerManager, LoggerManager>();
             services.AddSwaggerGen(c =>
