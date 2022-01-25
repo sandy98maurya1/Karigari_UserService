@@ -38,10 +38,16 @@ namespace UserManagement
         {
             services.AddControllers();
             services.AddSingleton<IConfiguration>(Configuration);
-            services.AddTransient<IUsersData, UserRepository>();
+            
+            // Domain
             services.AddScoped<IUsers, UsersDomain>();
             services.AddScoped<IProfile, ProfileDomain>();
+            services.AddScoped<ISearch, SearchDomain>();
+
+            //Repository
+            services.AddTransient<IUsersData, UserRepository>();
             services.AddTransient<IProfileData, ProfileRepository>();
+            services.AddScoped<ISearchData, SearchRepository>();
 
             services.AddScoped<ILoggerManager, LoggerManager>();
             services.AddSwaggerGen(c =>
