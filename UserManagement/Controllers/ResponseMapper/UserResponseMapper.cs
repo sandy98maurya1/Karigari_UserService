@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using Utility;
 
-namespace UserManagement.Controllers.ResponseMapper
+namespace UserManagement.Controllers.UserResponseMapper
 {
-    public static class ResponseMapper
+    public static class UserResponseMapper
     {
         public static ApiListResponse<IList<Users>> GetUsersResponce(this IList<Users> users)
         {

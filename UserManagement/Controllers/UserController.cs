@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using Utility;
 using Utility.LoggerService;
-using UserManagement.Controllers.ResponseMapper;
+using UserManagement.Controllers.UserResponseMapper;
 
 
 namespace UserManagement.Controllers

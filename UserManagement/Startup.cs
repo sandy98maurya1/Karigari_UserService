@@ -19,6 +19,7 @@ using NLog;
 using System.IO;
 using Utility.LoggerService;
 using Microsoft.OpenApi.Models;
+using Domain;
 
 namespace UserManagement
 {
@@ -39,6 +40,8 @@ namespace UserManagement
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddTransient<IUsersData, UserRepository>();
             services.AddScoped<IUsers, UsersDomain>();
+            services.AddScoped<IProfile, ProfileDomain>();
+
             services.AddScoped<ILoggerManager, LoggerManager>();
             services.AddSwaggerGen(c =>
             {

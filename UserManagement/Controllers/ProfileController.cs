@@ -1,5 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Contract;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models;
+using System;
+using System.Collections.Generic;
+using UserManagement.Controllers.ResponseMapper;
+using Utility;
+using Utility.LoggerService;
 
 namespace UserManagement.Controllers
 {
@@ -7,5 +14,96 @@ namespace UserManagement.Controllers
     [ApiController]
     public class ProfileController : ControllerBase
     {
+        private IProfile _profileDomain;
+        private readonly ILoggerManager _logger;
+        public ProfileController(IProfile profile, ILoggerManager logger)
+        {
+            _profileDomain = profile;
+            _logger = logger;
+        }
+
+        [HttpGet, Route("/GePprofileByUserId")]
+        public IActionResult GetProfileByUserId(int userId)
+        {
+            ApiResponse<JobProfile> responce = new ApiResponse<JobProfile>();
+            try
+            {
+                ApiExposeResponse<Dictionary<string, string>> modelErrors = GetModelErrors();
+                responce = _profileDomain.GetProfileByUserId(userId).GetProfileResponce();
+            }
+            catch (Exception ex)
+            {
+                responce = ex.CacheExceptionResponse();
+                _logger.LogInfo(ex.Message);
+            }
+            _logger.LogInfo(responce.Message);
+            return Ok(responce);
+
+        }
+
+
+        [HttpGet, Route("/CreateUserJobProfile")]
+        public IActionResult CreateUserJobProfile(JobProfile profile)
+        {
+            ApiResponse<JobProfile> responce = new ApiResponse<JobProfile>();
+            try
+            {
+                ApiExposeResponse<Dictionary<string, string>> modelErrors = GetModelErrors();
+                responce = _profileDomain.CreateUserJobProfile(profile).GetProfileResponce();
+            }
+            catch (Exception ex)
+            {
+                responce = ex.CacheExceptionResponse();
+                _logger.LogInfo(ex.Message);
+            }
+            _logger.LogInfo(responce.Message);
+            return Ok(responce);
+
+        }
+
+        [HttpGet, Route("/UpdateUserJobProfile")]
+        public IActionResult UpdateUserJobProfile(JobProfile profile, int userID)
+        {
+            ApiResponse<JobProfile> responce = new ApiResponse<JobProfile>();
+            try
+            {
+                ApiExposeResponse<Dictionary<string, string>> modelErrors = GetModelErrors();
+                responce = _profileDomain.UpdateUserJobProfile(profile, userID).GetProfileResponce();
+            }
+            catch (Exception ex)
+            {
+                responce = ex.CacheExceptionResponse();
+                _logger.LogInfo(ex.Message);
+            }
+            _logger.LogInfo(responce.Message);
+            return Ok(responce);
+
+        }
+
+        private ApiExposeResponse<Dictionary<string, string>> GetModelErrors()
+        {
+            Dictionary<string, string> errors = new Dictionary<string, string>();
+            if (!ModelState.IsValid)
+            {
+                foreach (var state in ModelState)
+                {
+                    string errordetails = string.Empty;
+                    foreach (var error in state.Value.Errors)
+                    {
+                        errordetails = errordetails + error.ErrorMessage;
+                    }
+
+                    errors.Add(state.Key.Contains(".") ? state.Key.Split('.')[1] : state.Key, errordetails);
+                }
+            }
+
+
+            return new ApiExposeResponse<Dictionary<string, string>>
+            {
+                IsSuccess = false,
+                Message = ErrorMessages.InValidInputMsg,
+                Error = errors
+            };
+        }
     }
 }
