@@ -22,7 +22,7 @@ namespace UserManagement.Controllers.ResponseMapper
         }
 
         [HttpGet, Route("/SearchByJobType")]
-        public IActionResult GetCompanyByJobType(string jobType)
+        public IActionResult GetCompanyByJobType(int jobType)
         {
             ApiListResponse<IEnumerable<Search>> responce = new ApiListResponse<IEnumerable<Search>>();
             try
@@ -41,7 +41,7 @@ namespace UserManagement.Controllers.ResponseMapper
         }
 
         [HttpGet, Route("/SearchByLocation")]
-        public IActionResult GetCompanyByLocation(string jobType, string location)
+        public IActionResult GetCompanyByLocation(int jobType, int location)
         {
             ApiListResponse<IEnumerable<Search>> responce = new ApiListResponse<IEnumerable<Search>>();
             try

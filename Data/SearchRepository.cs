@@ -22,7 +22,7 @@ namespace Data
             connection = GetConnection();
         }
 
-        public IEnumerable<Search> GetCompanyByJobType(string JobType)
+        public IEnumerable<Search> GetCompanyByJobType(int JobType)
         {
             IEnumerable<Search> result;
 
@@ -31,7 +31,8 @@ namespace Data
                 try
                 {
                     dbConnection.Open();
-                    var query = @""; //TODO : Required to implement Company Query once Company jobmodule ready
+                    var query = @"SELECT Id,	Duration,	JobAvailableDate,	JobTypeID,	LocationID	,IsAccomodation	,NoOfPositions	,CompanyId 
+                                    FROM Company_Job_Post WHERE JobTypeID = @JobType"; 
                     result = (IEnumerable<Search>)dbConnection.Query<IEnumerable<Search>>(query, new { @JobType = JobType }).ToList();
                 }
                 catch (Exception ex)
@@ -47,7 +48,7 @@ namespace Data
             }
         }
 
-        public IEnumerable<Search> GetCompanyByLocation(string JobType, string Location)
+        public IEnumerable<Search> GetCompanyByLocation(int JobType, int Location)
         {
             IEnumerable<Search> result;
 
@@ -56,7 +57,8 @@ namespace Data
                 try
                 {
                     dbConnection.Open();
-                    var query = @""; //TODO : Required to implement Company Query once Company jobmodule ready
+                    var query = @"SELECT Id,	Duration,	JobAvailableDate,	JobTypeID,	LocationID	,IsAccomodation	,NoOfPositions	,CompanyId 
+                                    FROM Company_Job_Post WHERE JobTypeID = @JobType AND Location =@Location";
                     result = (IEnumerable<Search>)dbConnection.Query<IEnumerable<Search>>(query, new { @JobType = JobType, @Location = Location }).FirstOrDefault();
                 }
                 catch (Exception ex)

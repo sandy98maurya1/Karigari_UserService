@@ -7,7 +7,7 @@ namespace Contract
 {
     public interface ISearch
     {
-        IEnumerable<Search> GetCompanyByJobType(string JobType);
-        IEnumerable<Search> GetCompanyByLocation(string JobType, string Location);
+        IEnumerable<Search> GetCompanyByJobType(int JobType);
+        IEnumerable<Search> GetCompanyByLocation(int JobType, int Location);
     }
 }

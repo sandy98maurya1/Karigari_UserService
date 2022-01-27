@@ -14,12 +14,12 @@ namespace Domain
             _searchData = searchData;
         }
 
-        public IEnumerable<Search> GetCompanyByJobType(string JobType)
+        public IEnumerable<Search> GetCompanyByJobType(int JobType)
         {
             return _searchData.GetCompanyByJobType(JobType);
         }
 
-        public IEnumerable<Search> GetCompanyByLocation(string JobType, string Location)
+        public IEnumerable<Search> GetCompanyByLocation(int JobType, int Location)
         {
             return _searchData.GetCompanyByLocation(JobType,Location);
         }
