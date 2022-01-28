@@ -31,8 +31,16 @@ namespace Data
                 try
                 {
                     dbConnection.Open();
-                    var query = @"SELECT Id,	Duration,	JobAvailableDate,	JobTypeID,	LocationID	,IsAccomodation	,NoOfPositions	,CompanyId 
-                                    FROM Company_Job_Post WHERE JobTypeID = @JobType"; 
+                    var query = @"SELECT c.Id,	cj.Duration,	cj.JobAvailableDate,	j.jobName as JobType, l.Name as Location	
+                                ,cj.IsAccomodation	,cj.NoOfPositions	,c.CompanyName, c.BusinessContactNo as ContactNo
+                                FROM Company_Job_Post cj 
+                                inner join JobType j 
+                                on cj.JobTypeID = j.Id
+                                inner join Location_State l
+                                on cj.LocationID = l.Id
+                                inner join Company c 
+                                on cj.companyId = c.Id
+                                WHERE JobTypeID = @JobType"; 
                     result = (IEnumerable<Search>)dbConnection.Query<IEnumerable<Search>>(query, new { @JobType = JobType }).ToList();
                 }
                 catch (Exception ex)
@@ -57,8 +65,16 @@ namespace Data
                 try
                 {
                     dbConnection.Open();
-                    var query = @"SELECT Id,	Duration,	JobAvailableDate,	JobTypeID,	LocationID	,IsAccomodation	,NoOfPositions	,CompanyId 
-                                    FROM Company_Job_Post WHERE JobTypeID = @JobType AND Location =@Location";
+                    var query = @"SELECT c.Id,	cj.Duration,	cj.JobAvailableDate,	j.jobName as JobType, l.Name as Location	
+                                ,cj.IsAccomodation	,cj.NoOfPositions	,c.CompanyName, c.BusinessContactNo as ContactNo 
+                                FROM Company_Job_Post cj 
+                                inner join JobType j 
+                                on cj.JobTypeID = j.Id
+                                inner join Location_State l
+                                on cj.LocationID = l.Id
+                                inner join Company c 
+                                on cj.companyId = c.Id
+                                WHERE JobTypeID = @JobType AND Location =@Location";
                     result = (IEnumerable<Search>)dbConnection.Query<IEnumerable<Search>>(query, new { @JobType = JobType, @Location = Location }).FirstOrDefault();
                 }
                 catch (Exception ex)
