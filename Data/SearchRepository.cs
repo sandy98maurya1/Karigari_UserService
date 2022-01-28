@@ -31,8 +31,16 @@ namespace Data
                 try
                 {
                     dbConnection.Open();
-                    var query = @"SELECT c.Id,	cj.Duration,	cj.JobAvailableDate,	j.jobName as JobType, l.Name as Location	
-                                ,cj.IsAccomodation	,cj.NoOfPositions	,c.CompanyName, c.BusinessContactNo as ContactNo
+                    var query = @"SELECT 
+                                        c.Id
+                                    ,	cj.Duration
+                                    ,	cj.JobAvailableDate
+                                    ,	j.jobName as JobType
+                                    ,   l.Name as Location	
+                                    ,   cj.IsAccomodation	
+                                    ,   cj.NoOfPositions	
+                                    ,   c.CompanyName
+                                    ,   c.BusinessContactNo as ContactNo
                                 FROM Company_Job_Post cj 
                                 inner join JobType j 
                                 on cj.JobTypeID = j.Id
@@ -65,8 +73,16 @@ namespace Data
                 try
                 {
                     dbConnection.Open();
-                    var query = @"SELECT c.Id,	cj.Duration,	cj.JobAvailableDate,	j.jobName as JobType, l.Name as Location	
-                                ,cj.IsAccomodation	,cj.NoOfPositions	,c.CompanyName, c.BusinessContactNo as ContactNo 
+                    var query = @"SELECT 
+                                        c.Id
+                                    ,	cj.Duration
+                                    ,	cj.JobAvailableDate
+                                    ,	j.jobName as JobType
+                                    ,   l.Name as Location	
+                                    ,   cj.IsAccomodation	
+                                    ,   cj.NoOfPositions	
+                                    ,   c.CompanyName
+                                    ,   c.BusinessContactNo as ContactNo
                                 FROM Company_Job_Post cj 
                                 inner join JobType j 
                                 on cj.JobTypeID = j.Id
