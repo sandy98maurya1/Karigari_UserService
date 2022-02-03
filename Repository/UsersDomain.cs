@@ -10,45 +10,23 @@ namespace Repository
     public class UsersDomain : IUsers
     {
         private readonly IUsersData _Users;
-        public UsersDomain(IUsersData users)
-        {
-            _Users = users;
-        }
-        public bool AddUser(Users user)
-        {
-            _Users.AddUser(user);
+        public UsersDomain(IUsersData users) => _Users = users;
+        public bool AddUser(Users user) => _Users.AddUser(user);
 
-            return true;
-        }
+        public bool DeleteUser(int userId) => _Users.DisableUser(userId);
 
-        public bool DeleteUser(int userId)
-        {
-            _Users.DisableUser(userId);
-            return true;
-        }
+        public IList<Users> GetAllUser() => _Users.GetAllUser();
 
-        public IList<Users> GetAllUser()
-        {
-            var userList = _Users.GetAllUser();
-            return userList;
-        }
+        public IList<DivisionDetails> GetDivisionDetails(int stateId) => _Users.GetDivisionDetails(stateId);
 
-        public Users GetUserById(int userId)
-        {
-            var user= _Users.GetUserById(userId);
-            return user;
-        }
+        public IList<StateDetails> GetStateDetails(int countryId) => _Users.GetStateDetails(countryId);
 
-        public Users GetUserByName(string name)
-        {
-            var user = _Users.GetUserByName(name);
-            return user;
-        }
+        public IList<TalukaDetails> GetTalukaDetails(int divisionId) => _Users.GetTalukaDetails(divisionId);
 
-        public bool UpdateUser(Users user, int id)
-        {
-            _Users.UpdateUser(user,id);
-            return true;
-        }
+        public Users GetUserById(int userId) => _Users.GetUserById(userId);
+
+        public Users GetUserByName(string name) => _Users.GetUserByName(name);
+
+        public bool UpdateUser(Users user, int id) => _Users.UpdateUser(user, id);
     }
 }

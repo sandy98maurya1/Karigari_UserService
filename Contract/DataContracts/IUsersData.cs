@@ -13,5 +13,9 @@ namespace Contract.DataContracts
         IList<Users> GetAllUser();
         Users GetUserById(int userId);
         Users GetUserByName(string name);
+        IList<TalukaDetails> GetTalukaDetails(int divisionId);
+        IList<DivisionDetails> GetDivisionDetails(int stateId);
+        IList<StateDetails> GetStateDetails(int countryId);
+
     }
 }

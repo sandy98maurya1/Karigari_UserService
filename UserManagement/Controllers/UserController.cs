@@ -34,7 +34,7 @@ namespace UserManagement.Controllers
             catch (Exception ex)
             {
                 responce = ex.CacheListExceptionResponse();
-                _logger.LogInfo(ex.Message); 
+                _logger.LogInfo(ex.Message);
             }
             _logger.LogInfo(responce.Message);
             return Ok(responce);
@@ -52,7 +52,7 @@ namespace UserManagement.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogInfo(ex.Message); 
+                _logger.LogInfo(ex.Message);
                 responce = ex.CacheExceptionResponse();
             }
             _logger.LogInfo(responce.Message);
@@ -102,7 +102,7 @@ namespace UserManagement.Controllers
             try
             {
                 ApiExposeResponse<Dictionary<string, string>> modelErrors = GetModelErrors();
-                responce = _userDomain.UpdateUser(users,id).CreateProfileResponse(users);
+                responce = _userDomain.UpdateUser(users, id).CreateProfileResponse(users);
             }
             catch (Exception ex)
             {
@@ -126,6 +126,60 @@ namespace UserManagement.Controllers
             {
                 _logger.LogInfo(ex.Message);
                 responce = ex.CacheExceptionResponse();
+            }
+            _logger.LogInfo(responce.Message);
+            return Ok(responce);
+        }
+
+        [HttpGet, Route("/GetStateDetails")]
+        public ActionResult GetStateDetails(int countryId)
+        {
+            ApiResponse<IList<StateDetails>> responce = new ApiResponse<IList<StateDetails>>();
+            try
+            {
+                ApiExposeResponse<Dictionary<string, string>> modelErrors = GetModelErrors();
+                responce = _userDomain.GetStateDetails(countryId).GetCountryResponce();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInfo(ex.Message);
+                responce = ex.CacheExceptionCountryResponse();
+            }
+            _logger.LogInfo(responce.Message);
+            return Ok(responce);
+        }
+
+        [HttpGet, Route("/GetDivisionDetails")]
+        public ActionResult GetDivisionDetails(int stateId)
+        {
+            ApiResponse< IList < DivisionDetails> > responce = new ApiResponse<IList<DivisionDetails>>();
+            try
+            {
+                ApiExposeResponse<Dictionary<string, string>> modelErrors = GetModelErrors();
+                responce = _userDomain.GetDivisionDetails(stateId).GetDivisionResponce();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInfo(ex.Message);
+                responce = ex.CacheExceptionDivisionResponse();
+            }
+            _logger.LogInfo(responce.Message);
+            return Ok(responce);
+        }
+
+        [HttpGet, Route("/GetTalukaDetails")]
+        public ActionResult GetTalukaDetails(int divisionId)
+        {
+            ApiResponse< IList < TalukaDetails >> responce = new ApiResponse<IList<TalukaDetails>>();
+            try
+            {
+                ApiExposeResponse<Dictionary<string, string>> modelErrors = GetModelErrors();
+                responce = _userDomain.GetTalukaDetails(divisionId).GetTalukaResponce();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInfo(ex.Message);
+                responce = ex.CacheExceptionTalukaDetailsResponse();
             }
             _logger.LogInfo(responce.Message);
             return Ok(responce);

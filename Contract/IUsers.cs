@@ -12,6 +12,9 @@ namespace Contract
         bool DeleteUser(int userId);
         IList<Users> GetAllUser();
         Users GetUserById(int userId);
-        Users GetUserByName(string name);   
+        Users GetUserByName(string name);
+        IList<TalukaDetails> GetTalukaDetails(int divisionId);
+        IList<DivisionDetails> GetDivisionDetails(int stateId);
+        IList<StateDetails> GetStateDetails(int countryId);
     }
 }
