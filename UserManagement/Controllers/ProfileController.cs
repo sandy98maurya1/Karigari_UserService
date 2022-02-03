@@ -22,7 +22,7 @@ namespace UserManagement.Controllers
             _logger = logger;
         }
 
-        [HttpGet, Route("/GePprofileByUserId")]
+        [HttpGet, Route("/GebProfileByUserId")]
         public IActionResult GetProfileByUserId(int userId)
         {
             ApiResponse<JobProfile> responce = new ApiResponse<JobProfile>();

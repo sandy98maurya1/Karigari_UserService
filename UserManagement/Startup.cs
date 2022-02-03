@@ -38,15 +38,21 @@ namespace UserManagement
         {
             services.AddControllers();
             services.AddSingleton<IConfiguration>(Configuration);
-            services.AddTransient<IUsersData, UserRepository>();
+            
+            // Domain
             services.AddScoped<IUsers, UsersDomain>();
             services.AddScoped<IProfile, ProfileDomain>();
+            services.AddScoped<ISearch, SearchDomain>();
+
+            //Repository
+            services.AddTransient<IUsersData, UserRepository>();
             services.AddTransient<IProfileData, ProfileRepository>();
+            services.AddScoped<ISearchData, SearchRepository>();
 
             services.AddScoped<ILoggerManager, LoggerManager>();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "KarigariCompanyService", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "KarigariUserManagementService", Version = "v1" });
             });
         }
 
@@ -57,7 +63,7 @@ namespace UserManagement
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserService"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "KarigariUserManagementService v1"));
             }
            
             app.UseHttpsRedirection();

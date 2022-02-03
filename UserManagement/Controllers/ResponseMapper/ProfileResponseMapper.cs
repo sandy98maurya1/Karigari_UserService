@@ -33,7 +33,7 @@ namespace UserManagement.Controllers.ResponseMapper
             {
                 return new ApiResponse<JobProfile>
                 {
-                    Message = string.Format(ErrorMessages.CreateSucess, profile.Id + " " + profile.JobTypeID),
+                    Message = string.Format(ErrorMessages.CreateFail, profile.Id + " " + profile.JobTypeID),
                     IsSuccess = status,
                     StatusCode = 400
                 };
