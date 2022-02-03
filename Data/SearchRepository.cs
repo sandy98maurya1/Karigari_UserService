@@ -1,5 +1,6 @@
 ﻿using Contract;
 using Dapper;
+using Dapper.Mapper;
 using Microsoft.Extensions.Configuration;
 using Models;
 using System;
@@ -48,7 +49,8 @@ namespace Data
                                 on cj.LocationID = l.Id
                                 inner join Company c 
                                 on cj.companyId = c.Id
-                                WHERE JobTypeID = @JobType"; 
+                                WHERE JobTypeID = @JobType";
+                    //result = dbConnection.Query<Search>(query, MapResults, splitOn: "JobType").ToList();
                     result = (IEnumerable<Search>)dbConnection.Query<IEnumerable<Search>>(query, new { @JobType = JobType }).ToList();
                 }
                 catch (Exception ex)
@@ -109,6 +111,11 @@ namespace Data
         public string GetConnection()
         {
             return _configuration.GetSection("ConnectionStrings").GetSection("ProductContext").Value;
+        }
+
+        public bool AssociateUserAndCompany(int UserId, int CompanyId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

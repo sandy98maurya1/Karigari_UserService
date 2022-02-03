@@ -9,5 +9,7 @@ namespace Contract
     {
         IEnumerable<Search> GetCompanyByJobType(int JobType);
         IEnumerable<Search> GetCompanyByLocation(int JobType, int Location);
+
+        bool AssociateUserAndCompany(int UserId, int CompanyId);
     }
 }

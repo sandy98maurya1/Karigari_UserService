@@ -52,7 +52,7 @@ namespace UserManagement
             services.AddScoped<ILoggerManager, LoggerManager>();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "KarigariCompanyService", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "KarigariUserManagementService", Version = "v1" });
             });
         }
 
@@ -63,7 +63,7 @@ namespace UserManagement
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserService v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "KarigariUserManagementService v1"));
             }
            
             app.UseHttpsRedirection();
