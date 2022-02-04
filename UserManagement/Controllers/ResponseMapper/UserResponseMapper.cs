@@ -38,27 +38,6 @@ namespace UserManagement.Controllers.UserResponseMapper
                 StatusCode = 200
             };
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public static ApiResponse<IList<StateDetails>> CacheExceptionCountryResponse(this Exception ex)
         {
             return new ApiResponse<IList<StateDetails>>
@@ -88,10 +67,6 @@ namespace UserManagement.Controllers.UserResponseMapper
                 Message = ex.Message
             };
         }
-
-
-
-
 
         public static ApiListResponse<IList<TalukaDetails>> GetTalukaResponce(this IList<TalukaDetails> taluka)
         {
