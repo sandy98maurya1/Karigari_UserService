@@ -193,7 +193,6 @@ namespace Data
                 return count == 1 ? true : false;
             }
         }
-
         public IList<StateDetails> GetStateDetails(int countryId)
         {
             IList<StateDetails> state = new List<StateDetails>();
@@ -219,8 +218,6 @@ namespace Data
                 return state;
             }
         }
-
-
         public IList<DivisionDetails> GetDivisionDetails(int stateId)
         {
             IList<DivisionDetails> divisions = new List<DivisionDetails>();
@@ -246,8 +243,6 @@ namespace Data
                 return divisions;
             }
         }
-
-
         public IList<TalukaDetails> GetTalukaDetails(int divisionId)
         {
             IList<TalukaDetails> talukaDetails = new List<TalukaDetails>();
@@ -273,25 +268,6 @@ namespace Data
                 return talukaDetails;
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         private Users MapResults(Users user, Address address)
         {
             user.Address = address;
