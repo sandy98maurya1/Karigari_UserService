@@ -38,27 +38,6 @@ namespace UserManagement.Controllers.UserResponseMapper
                 StatusCode = 200
             };
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public static ApiResponse<IList<StateDetails>> CacheExceptionCountryResponse(this Exception ex)
         {
             return new ApiResponse<IList<StateDetails>>
@@ -89,10 +68,6 @@ namespace UserManagement.Controllers.UserResponseMapper
             };
         }
 
-
-
-
-
         public static ApiListResponse<IList<TalukaDetails>> GetTalukaResponce(this IList<TalukaDetails> taluka)
         {
             return new ApiListResponse<IList<TalukaDetails>>
@@ -112,23 +87,6 @@ namespace UserManagement.Controllers.UserResponseMapper
                 Message = ex.Message
             };
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         public static ApiResponse<Users> CreateProfileResponse(this bool status, Users user)
         {
@@ -151,6 +109,37 @@ namespace UserManagement.Controllers.UserResponseMapper
                 };
             }
         }
+        public static ApiResponse<JobApply> ApplyForJobResponse(this bool status)
+        {
+            if (status)
+            {
+                return new ApiResponse<JobApply>
+                {
+                    Message = string.Format(ErrorMessages.CreateSucess, "Job Applied"),
+                    IsSuccess = status,
+                    StatusCode = 200
+                };
+            }
+            else
+            {
+                return new ApiResponse<JobApply>
+                {
+                    Message = string.Format(ErrorMessages.CreateFail, "Job Applied"),
+                    IsSuccess = status,
+                    StatusCode = 400
+                };
+            }
+        }
+        public static ApiResponse<JobApply> CacheExceptionApplyJobResponse(this Exception ex)
+        {
+            return new ApiResponse<JobApply>
+            {
+                IsSuccess = false,
+                Data = null,
+                Message = ex.Message
+            };
+        }
+
         public static ApiResponse<Users> DisableProfileResponse(this bool status)
         {
             if (status)

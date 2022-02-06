@@ -13,6 +13,8 @@ namespace Repository
         public UsersDomain(IUsersData users) => _Users = users;
         public bool AddUser(Users user) => _Users.AddUser(user);
 
+        public bool ApplyForJob(JobApply jobApply) => _Users.ApplyForJob(jobApply);
+
         public bool DeleteUser(int userId) => _Users.DisableUser(userId);
 
         public IList<Users> GetAllUser() => _Users.GetAllUser();
