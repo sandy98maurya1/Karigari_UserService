@@ -88,23 +88,6 @@ namespace UserManagement.Controllers.UserResponseMapper
             };
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public static ApiResponse<Users> CreateProfileResponse(this bool status, Users user)
         {
             if (status)
@@ -126,6 +109,37 @@ namespace UserManagement.Controllers.UserResponseMapper
                 };
             }
         }
+        public static ApiResponse<JobApply> ApplyForJobResponse(this bool status)
+        {
+            if (status)
+            {
+                return new ApiResponse<JobApply>
+                {
+                    Message = string.Format(ErrorMessages.CreateSucess, "Job Applied"),
+                    IsSuccess = status,
+                    StatusCode = 200
+                };
+            }
+            else
+            {
+                return new ApiResponse<JobApply>
+                {
+                    Message = string.Format(ErrorMessages.CreateFail, "Job Applied"),
+                    IsSuccess = status,
+                    StatusCode = 400
+                };
+            }
+        }
+        public static ApiResponse<JobApply> CacheExceptionApplyJobResponse(this Exception ex)
+        {
+            return new ApiResponse<JobApply>
+            {
+                IsSuccess = false,
+                Data = null,
+                Message = ex.Message
+            };
+        }
+
         public static ApiResponse<Users> DisableProfileResponse(this bool status)
         {
             if (status)

@@ -57,7 +57,7 @@ namespace Data
                         "U.RefreshToken,U.Password,U.IsMobileVerified,U.DeviceID,A.Id as UserId, A.Village,A.Taluka,A.City,A.State,A.Country,A.Zip FROM Users U, " +
                         "Address A  where U.ID = A.UserId and U.ID = @id";
 
-                    user = (Users)dbConnection.Query<Users, Address, Users>(query, MapResults, new { @id = userId }, splitOn: "UserId");
+                    user = (Users)dbConnection.Query<Users, Address, Users>(query, MapResults, new { @id = userId }, splitOn: "UserId").SingleOrDefault();
 
                 }
                 catch (Exception ex)
@@ -146,8 +146,8 @@ namespace Data
                     using (var transaction = dbConnection.BeginTransaction())
                     {
 
-                        var userId = dbConnection.Query<int>(@"UPDATE Users Set FirstName=@FirstName,LastName=@LastName,Contact=@Contact,AlternetContact=@AlternetContact,MaritalStatus=@MaritalStatus,Gender=@Gender,Address=@Address,Role=@Role,WorkerType=@WorkerType,IsActive=@IsActive,RefreshToken=@RefreshToken,Password=@Password,IsMobileVerified=@IsMobileVerified,DeviceID=@DeviceID,Enabled=@Enabled where Id=@userId",
-                        new { @FirstName = user.FirstName, @LastName = user.LastName, @Contact = user.Contact, @AlternetContact = user.AlternetContact, @MaritalStatus = user.MaritalStatus, @Gender = user.Gender, @Address = user.Address, @Role = user.Role, @WorkerType = user.WorkerType, @IsActive = user.IsActive, @RefreshToken = user.RefreshToken, @Password = user.Password, @IsMobileVerified = user.IsMobileVerified, @DeviceID = user.DeviceID, @Enabled = user.Enabled, @userId = id }, transaction: transaction).FirstOrDefault();
+                        var userId = dbConnection.Query<int>(@"UPDATE Users Set FirstName=@FirstName,LastName=@LastName,Contact=@Contact,AlternetContact=@AlternetContact,MaritalStatus=@MaritalStatus,Gender=@Gender,Role=@Role,WorkerType=@WorkerType,IsActive=@IsActive,RefreshToken=@RefreshToken,Password=@Password,IsMobileVerified=@IsMobileVerified,DeviceID=@DeviceID,Enabled=@Enabled where Id=@userId",
+                        new { @FirstName = user.FirstName, @LastName = user.LastName, @Contact = user.Contact, @AlternetContact = user.AlternetContact, @MaritalStatus = user.MaritalStatus, @Gender = user.Gender, @Role = user.Role, @WorkerType = user.WorkerType, @IsActive = user.IsActive, @RefreshToken = user.RefreshToken, @Password = user.Password, @IsMobileVerified = user.IsMobileVerified, @DeviceID = user.DeviceID, @Enabled = user.Enabled, @userId = id }, transaction: transaction).FirstOrDefault();
                         if (user.Address != null && userId != 0)
                         {
                             count = dbConnection.Execute(@"Update Address set Village=@Village, Taluka=@Taluka, City=@City, State=@State, Country=@Country, Zip=@Zip where UserId=@UserId",
@@ -274,23 +274,30 @@ namespace Data
             }
         }
 
+        public bool ApplyForJob(JobApply jobApply)
+        {
+            var count = 0;
 
+            using (var con = new SqlConnection(connection))
+            {
+                try
+                {
+                    con.Open();
+                    var query = "INSERT INTO UserAndCompanyMapping(UserId, CompanyId, JobAppliedFor_JobId, AppliedDate) VALUES (@UserId, @CompanyId, @JobAppliedFor_JobId, @AppliedDate)";
+                    count = con.Execute(query, new { @UserId = jobApply.UserId, @CompanyId = jobApply.CompanyId, @JobAppliedFor_JobId = jobApply.JobAppliedFor_JobId, @DateFrom = jobApply.AppliedDate });
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    con.Close();
+                }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                return count == 1 ? true : false;
+            }
+        }
 
         private Users MapResults(Users user, Address address)
         {
@@ -301,5 +308,7 @@ namespace Data
         {
             return _configuration.GetSection("ConnectionStrings").GetSection("ProductContext").Value;
         }
+
+        
     }
 }

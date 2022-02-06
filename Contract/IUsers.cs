@@ -16,5 +16,6 @@ namespace Contract
         IList<TalukaDetails> GetTalukaDetails(int divisionId);
         IList<DivisionDetails> GetDivisionDetails(int stateId);
         IList<StateDetails> GetStateDetails(int countryId);
+        bool ApplyForJob(JobApply jobApply);
     }
 }

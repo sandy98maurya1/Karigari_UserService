@@ -184,6 +184,25 @@ namespace UserManagement.Controllers
             _logger.LogInfo(responce.Message);
             return Ok(responce);
         }
+
+        [HttpPost, Route("/ApplyForJob")]
+        public ActionResult ApplyForJob(JobApply jobApply)
+        {
+            ApiResponse<JobApply> responce = new ApiResponse<JobApply>();
+            try
+            {
+                ApiExposeResponse<Dictionary<string, string>> modelErrors = GetModelErrors();
+                responce = _userDomain.ApplyForJob(jobApply).ApplyForJobResponse();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInfo(ex.Message);
+                responce = ex.CacheExceptionApplyJobResponse();
+            }
+            _logger.LogInfo(responce.Message);
+            return Ok(responce);
+        }
+
         private ApiExposeResponse<Dictionary<string, string>> GetModelErrors()
         {
             Dictionary<string, string> errors = new Dictionary<string, string>();
