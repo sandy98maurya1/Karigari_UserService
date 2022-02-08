@@ -202,7 +202,7 @@ namespace Data
                 try
                 {
                     dbConnection.Open();
-                    var query = @"SELECT Id,Name FROM [dbo].[Address_State]";
+                    var query = @"SELECT Id as StateId,Name FROM [dbo].[Address_State]";
 
                     state = (List<StateDetails>)dbConnection.Query<StateDetails>(query);
 
@@ -229,7 +229,7 @@ namespace Data
                 try
                 {
                     dbConnection.Open();
-                    var query = @"SELECT Id,Name, State_Id as StateId FROM [dbo].[Address_Division] where State_Id= @Id";
+                    var query = @"SELECT Id as DivisionId,Name, State_Id as StateId FROM [dbo].[Address_Division] where State_Id= @Id";
 
                     divisions = (List<DivisionDetails>)dbConnection.Query<DivisionDetails>(query, new { @Id = stateId });
 
@@ -256,7 +256,7 @@ namespace Data
                 try
                 {
                     dbConnection.Open();
-                    var query = @"SELECT Id,Name,  Division_ID as DivisionId FROM [dbo].[Address_Districts_Taluka] where Division_ID= @Id";
+                    var query = @"SELECT Id as TalukaId,Name,  Division_ID as DivisionId FROM [dbo].[Address_Districts_Taluka] where Division_ID= @Id";
 
                     talukaDetails = (IList<TalukaDetails>)dbConnection.Query<TalukaDetails>(query, new { @Id = divisionId });
 

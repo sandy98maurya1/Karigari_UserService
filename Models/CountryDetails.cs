@@ -11,14 +11,14 @@ namespace Models
     }
     public class StateDetails : CountryDetails
     {
-        public int CountryId { get; set; }
+        public int StateId { get; set; }
     }
     public class DivisionDetails : StateDetails
     {
-        public int StateId { get; set; }
+        public int DivisionId { get; set; }
     }
     public class TalukaDetails : DivisionDetails
     {
-        public int DivisionId { get; set; }
+        public int TalukaId { get; set; }
     }
 }
