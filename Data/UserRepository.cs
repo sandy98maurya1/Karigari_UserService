@@ -64,9 +64,8 @@ namespace Data
                         inner join Address_State s on a.State = s.Id inner join Address_Division d on a.City = d.Id inner join Address_Districts_Taluka ta on a.Taluka = ta.Id where a.UserId = @id) as FinalAddress
                         FROM Users U,Address A  where U.ID = A.UserId and U.ID = @id";
 
-
-
-
+                   // var sss = dbConnection.Query(query, new { @id = userId }).ToList();
+                    //MapResults(user,dbConnection.Query<Users>(query, new { @id = userId }).FirstOrDefault());
 
                     user = (Users)dbConnection.Query<Users, Address, Users>(query, MapResults, new { @id = userId }, splitOn: "UserId").SingleOrDefault();
 
@@ -83,6 +82,7 @@ namespace Data
                 return user;
             }
         }
+                
         public Users GetUserByName(string name)
         {
             Users user = new Users();
@@ -315,6 +315,15 @@ namespace Data
             user.Address = address;
             return user;
         }
+        //private Users MapResults(Users user,dynamic enumerable)
+        //{
+
+        //  return new Users() { 
+        //   Address = .Address,
+          
+        //  };
+        //}
+
         public string GetConnection()
         {
             return _configuration.GetSection("ConnectionStrings").GetSection("ProductContext").Value;
