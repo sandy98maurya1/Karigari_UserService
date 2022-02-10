@@ -53,9 +53,20 @@ namespace Data
                 try
                 {
                     dbConnection.Open();
-                    var query = @"SELECT U.Id,U.FirstName,U.LastName,U.Contact,U.AlternetContact,U.MaritalStatus,U.Gender,U.DateOfBirth,U.Role,U.WorkerType,U.IsActive," +
-                        "U.RefreshToken,U.Password,U.IsMobileVerified,U.DeviceID,A.Id as UserId, A.Village,A.Taluka,A.City,A.State,A.Country,A.Zip FROM Users U, " +
-                        "Address A  where U.ID = A.UserId and U.ID = @id";
+                    //var query = @"SELECT U.Id,U.FirstName,U.LastName,U.Contact,U.AlternetContact,U.MaritalStatus,U.Gender,U.DateOfBirth,U.Role,U.WorkerType,U.IsActive," +
+                    //    "U.RefreshToken,U.Password,U.IsMobileVerified,U.DeviceID,A.Id as UserId, A.Village,A.Taluka,A.City,A.State,A.Country,A.Zip FROM Users U, " +
+                    //    "Address A  where U.ID = A.UserId and U.ID = @id";
+
+
+                    var query = @"SELECT U.Id,U.FirstName,U.LastName,U.Contact,U.AlternetContact,U.MaritalStatus,U.Gender,U.DateOfBirth,U.Role,
+                        U.WorkerType,U.IsActive,U.RefreshToken,U.Password,U.IsMobileVerified,U.DeviceID,A.Id as UserId, A.Village,A.Taluka,A.City,A.State,
+                        A.Country,A.Zip, (SELECT a.village + ', ' + ta.Name + ', ' + d.Name + ', ' + s.Name + ', ' + 'India, Zip: ' + a.Zip  FROM Address A 
+                        inner join Address_State s on a.State = s.Id inner join Address_Division d on a.City = d.Id inner join Address_Districts_Taluka ta on a.Taluka = ta.Id where a.UserId = @id) as FinalAddress
+                        FROM Users U,Address A  where U.ID = A.UserId and U.ID = @id";
+
+
+
+
 
                     user = (Users)dbConnection.Query<Users, Address, Users>(query, MapResults, new { @id = userId }, splitOn: "UserId").SingleOrDefault();
 
@@ -309,6 +320,6 @@ namespace Data
             return _configuration.GetSection("ConnectionStrings").GetSection("ProductContext").Value;
         }
 
-        
+
     }
 }

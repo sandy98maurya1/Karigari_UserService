@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Models
 {
-    public class Users:ApiResponse
+    public class Users : ApiResponse
     {
         [Key]
         public int Id { get; set; }
@@ -18,6 +18,7 @@ namespace Models
         public string? Gender { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public Address Address { get; set; }
+        public string? FinalAddress { get; set; }
         public string? Role { get; set; }
         public WorkerType WorkerType { get; set; }
         public bool IsActive { get; set; }
